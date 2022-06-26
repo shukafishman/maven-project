@@ -1,16 +1,14 @@
 pipeline {
     agent any
+
+    triggers {
+        pollSCM('* * * * *')
+    }
+
     tools {
         maven 'local_maven'
     }
     stages {
-        stage ('Initialize') {
-            steps {
-                sh '''
-                    echo "PATH = ${PATH}"
-                '''
-            }
-        }
         stage ('Build') {
             steps {
                 sh 'mvn clean package'
@@ -28,4 +26,5 @@ pipeline {
             }
         }
     }
+
 }
